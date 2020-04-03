@@ -1,0 +1,35 @@
+https://ectnandaglobal.cafe24api.com/api/v2/admin/orders/111/memos/999
+111	order_id1
+999	memono_1
+두가지를 바꾸는 방법(url_replace_origin / url_replace_change)
+url_replace_change 에만 {"111":"order_id1", "999": "memono_1"}
+
+{
+    "errors": [
+        {
+            "code": 422,
+            "message": "This order does not exist.",
+            "more_info": {
+                "order_id": "20200325-0001124",
+                "status": "paid",
+                "defer_payment_exec": "F",
+                "defer_payment_real_deposit": "N"
+            }
+        },
+        {
+            "code": 422,
+            "message": "This order does not exist.",
+            "more_info": {
+                "order_id": "20200325-0001117",
+                "status": "paid",
+                "defer_payment_exec": "F",
+                "defer_payment_real_deposit": "N"
+            }
+        }
+    ]
+}
+order_id가 매번 변할때 chkList에 넣는 방법
+X {"errors.0.more_info.0.order_id":"string","errors.1.more_info.0.order_id":"string"}
+O {"errors.0.more_info.order_id":"string","errors.1.more_info.order_id":"string"}
+원인: [] <-- 여기 있을때만 0, 1 이고 more_info 의 경우 {} 어레이 형태기때문에 0,1 을 안넣어줌
+
